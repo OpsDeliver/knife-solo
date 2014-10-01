@@ -258,9 +258,10 @@ class Chef
 
       def rsync(source_path, target_path, extra_opts = '--delete-after')
         if config[:ssh_gateway]
-          ssh_command = "ssh -TA #{config[:ssh_gateway]} ssh -T -o StrictHostKeyChecking=no #{ssh_args}"
+          # ssh_command = "ssh -TA #{config[:ssh_gateway]} ssh -T -o StrictHostKeyChecking=no #{ssh_args}"
+          ssh_command = "sshpass -p #{$password} ssh -TA #{config[:ssh_gateway]} ssh -T -o StrictHostKeyChecking=no #{ssh_args}"
         else
-          ssh_command = "ssh #{ssh_args}"
+          ssh_command = "sshpass -p #{$password} ssh #{ssh_args}"
         end
 
         cmd = ['rsync', '-rL', rsync_debug, rsync_permissions, %Q{--rsh=#{ssh_command}}, extra_opts]

@@ -260,7 +260,7 @@ class Chef
         if config[:ssh_gateway]
           ssh_command = "ssh -TA #{config[:ssh_gateway]} ssh -T -o StrictHostKeyChecking=no #{ssh_args}"
         else
-          ssh_command = "ssh #{ssh_args}"
+          ssh_command = "ssh #{ssh_args} -o StrictHostKeyChecking=no"
         end
         if config[:ssh_password]
           ssh_command.insert(0, "/usr/local/bin/sshpass -p '#{config[:ssh_password]}' ")
